@@ -46,3 +46,38 @@ How was that, Ken?
 ✔ You: Quote the last sentence of the story exactly.
 AI: Ken accepted, and from that day on, he was known as the hero of SummerFest.
 ```
+
+### With Zep
+
+```shell
+npm run chat-zep
+```
+
+**Notes**
+
+
+
+
+This is `memory.context` after the first message:
+
+```xml
+FACTS and ENTITIES represent relevant context to the current conversation.
+
+# These are the most relevant facts and their valid date ranges
+# format: FACT (Date range: from - to)
+<FACTS>
+  - user has the id of 1 (2024-11-30 17:09:44 - present)
+  - user has the name of Ken Collins (2024-11-30 17:09:44 - present)
+  - user has the email of ken@unremarkable.ai (2024-11-30 17:09:44 - present)
+</FACTS>
+
+# These are the most relevant entities
+# ENTITY_NAME: entity summary
+<ENTITIES>
+  - user: The user initiated a conversation with a greeting, using either 'hey' or 'hello'.
+  - ken@unremarkable.ai: user with the email of ken@unremarkable.ai
+  - User: user
+  - Ken Collins: user with the name of Ken Collins
+  - 1: user with the id of 1
+</ENTITIES>
+```
