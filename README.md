@@ -9,11 +9,14 @@ A handful of demos exploring Knowledge Graphs with [Zep](https://www.getzep.com?
 
 ## Setup
 
-Run npm install and make sure you have the following environment variables needed:
+Run npm install and build. 
 
 ```shell
 npm install
+npm run build
 ```
+
+Make sure you have the following environment variables needed:
 
 - `ZEP_API_KEY` - Your [Zep's](https://help.getzep.com/projects) project API Key.
 - `GROQ_API_KEY` - Your [Groq](https://console.groq.com/playground?ref=unremarkable.ai) API Key.
@@ -53,11 +56,6 @@ AI: Ken accepted, and from that day on, he was known as the hero of SummerFest.
 npm run chat-zep
 ```
 
-**Notes**
-
-
-
-
 This is `memory.context` after the first message:
 
 ```xml
@@ -81,3 +79,9 @@ FACTS and ENTITIES represent relevant context to the current conversation.
   - 1: user with the id of 1
 </ENTITIES>
 ```
+
+**Observations**
+
+* I would imagine that a find or create pattern for a user is common. Perhaps an API upsert pattern would be useful? Either way, easy to make a helper function that does this.
+* The User id property is a number but might be better off with a string. https://github.com/getzep/zep-js/issues/109
+* Do Zep sessions expire??? Seems no. It would be nice if they expired in 30 days if not updated much the same way OpenAI's Thread object does? Would be nice too to set a TTL on a session when creating it too.

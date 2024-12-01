@@ -4,8 +4,9 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "tsc",
-    "chat": "node dist/chat.js",
+    "build": "npx tsc",
+    "clean": "node dist/scripts/clean.js",
+    "chat-basic": "node dist/chat-basic.js",
     "chat-zep": "NODE_OPTIONS='--no-warnings' node dist/chat-zep.js"
   },
   "dependencies": {

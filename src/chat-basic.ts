@@ -33,6 +33,7 @@ while (true) {
   const userInput = await inquirer.prompt([
     { type: "input", name: "message", message: "You:" },
   ]);
+  if (userInput.message.toLowerCase() === "exit") break;
   messages.push({ role: "user", content: userInput.message });
   const assistant = await chat();
   messages.push({ role: "assistant", content: assistant });

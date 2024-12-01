@@ -2,12 +2,8 @@ import inquirer from "inquirer";
 import { v4 as uuidv4 } from "uuid";
 import { createGroq } from "@ai-sdk/groq";
 import { generateText } from "ai";
-import { ZepClient } from "@getzep/zep-cloud";
+import { zep } from "./shared/zep.js";
 import type { Message } from "@getzep/zep-cloud/api";
-
-const zep = new ZepClient({
-  apiKey: process.env.ZEP_API_KEY,
-});
 
 const groq = createGroq({
   apiKey: process.env.GROQ_API_KEY,
@@ -55,7 +51,7 @@ const sessionId = uuidv4();
 
 zep.memory.addSession({
   sessionId: sessionId,
-  userId: "1",
+  userId: user.userId!,
 });
 
 zep.memory.add(sessionId, {
@@ -72,13 +68,14 @@ while (true) {
   const userInput = await inquirer.prompt([
     { type: "input", name: "message", message: "You:" },
   ]);
+  if (userInput.message.toLowerCase() === "exit") break;
   zep.memory.add(sessionId, {
     messages: [{ role: "user", roleType: "user", content: userInput.message }],
   });
   const assistant = await chat();
   zep.memory.add(sessionId, {
     messages: [
-      { role: "assistant", roleType: "assistant", content: userInput.message },
+      { role: "assistant", roleType: "assistant", content: assistant },
     ],
   });
   console.log("AI:", assistant);
