@@ -4,21 +4,15 @@ let pageNumber = 1;
 let sessions;
 process.stdout.write("Deleting sessions...");
 do {
-  try {
-    const response = await zep.memory.listSessions({
-      pageSize: 100,
-      pageNumber,
-    });
-    sessions = response.sessions;
-  } catch (error) {
-    if (error.code === 404) {
-      sessions = [];
-    } else {
-      throw error;
-    }
-  }
+  const response = await zep.memory.listSessions({
+    pageSize: 100,
+    pageNumber,
+  });
+  sessions = response.sessions;
   sessions?.forEach((s) => {
-    zep.memory.delete(s.sessionId!);
+    try {
+      zep.memory.delete(s.sessionId!);
+    } catch {}
     process.stdout.write(".");
   });
   pageNumber++;

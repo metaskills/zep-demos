@@ -30,10 +30,11 @@ async function findOrCreateUser(u: {
 
 async function chat() {
   const memory: any = await zep.memory.get(sessionId);
-  // console.log(memory.context);
   const { text } = await generateText({
     model: groq,
-    prompt: memory.context,
+    messages: memory.messages.map((m: Message) => {
+      return { role: m.roleType, content: m.content };
+    }),
     temperature: 0.1,
     maxTokens: 1000,
   });
@@ -55,13 +56,7 @@ zep.memory.addSession({
 });
 
 zep.memory.add(sessionId, {
-  messages: [
-    {
-      role: "system",
-      roleType: "system",
-      content: "You are a helpful assistant.",
-    },
-  ],
+  messages: [{ roleType: "system", content: "You are a helpful assistant." }],
 });
 
 while (true) {
@@ -70,13 +65,11 @@ while (true) {
   ]);
   if (userInput.message.toLowerCase() === "exit") break;
   zep.memory.add(sessionId, {
-    messages: [{ role: "user", roleType: "user", content: userInput.message }],
+    messages: [{ roleType: "user", content: userInput.message }],
   });
   const assistant = await chat();
   zep.memory.add(sessionId, {
-    messages: [
-      { role: "assistant", roleType: "assistant", content: assistant },
-    ],
+    messages: [{ roleType: "assistant", content: assistant }],
   });
   console.log("AI:", assistant);
 }
