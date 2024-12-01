@@ -1,6 +1,6 @@
 import { createGroq } from "@ai-sdk/groq";
 import { streamText, CoreUserMessage, CoreAssistantMessage } from "ai";
-import { getMessage } from "./shared/inquirer.js";
+import { inquire } from "./shared/inquirer.js";
 
 const messages: (CoreUserMessage | CoreAssistantMessage)[] = [];
 
@@ -27,7 +27,7 @@ async function chat(content: string) {
 }
 
 while (true) {
-  const content = await getMessage();
+  const content = await inquire();
   if (content.toLowerCase() === "exit") break;
   await chat(content);
 }

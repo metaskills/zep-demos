@@ -1,9 +1,9 @@
-import inquirer from "inquirer";
 import { v4 as uuidv4 } from "uuid";
 import { createGroq } from "@ai-sdk/groq";
 import { streamText } from "ai";
 import { zep } from "./shared/zep.js";
 import type { Message } from "@getzep/zep-cloud/api";
+import { getMessage } from "./shared/inquirer.js";
 
 const groq = createGroq({
   apiKey: process.env.GROQ_API_KEY,
