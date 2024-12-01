@@ -7,7 +7,7 @@ const groq = createGroq({
 })("llama-3.2-3b-preview");
 
 async function chat() {
-  const stream = await streamText({
+  const stream = streamText({
     model: groq,
     system: "You are a helpful assistant.",
     messages: messages,

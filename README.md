@@ -29,19 +29,19 @@ npm run basic
 
 ```
 ✔ You: Hi, my name is Ken.
-AI: Hi Ken, it's nice to meet you. Is there something I can help you with, or would you like to chat?
+Hi Ken, it's nice to meet you. Is there something I can help you with, or would you like to chat?
 ✔ You: What is my name?
-AI: Your name is Ken.
+Your name is Ken.
 ✔ You: Tell me a short story using my name.
-AI: Here's a short story for you, Ken:
+Here's a short story for you, Ken:
 
-It was a sunny day in the small town of Willow Creek, and Ken was excited to participate in the annual SummerFest celebration <!-- Story truncated for brevity -->
+<!-- Story truncated for brevity -->
 
-The crowd erupted in applause, and Mr. Jenkins was so grateful that he offered Ken a special prize: a year's supply of his famous homemade jam. Ken accepted, and from that day on, he was known as the hero of SummerFest.
+In the end, it was a close call, but Ken emerged victorious, his stomach full and his prize in hand. As he walked away with his trophy, he couldn't help but smile at Emma, who had given him a run for his money. Maybe next year, Ken thought, I'll have to bring my A-game.
 
 How was that, Ken?
 ✔ You: Quote the last sentence of the story exactly.
-AI: Ken accepted, and from that day on, he was known as the hero of SummerFest.
+Maybe next year, I'll have to bring my A-game.
 ```
 
 ### With Zep
