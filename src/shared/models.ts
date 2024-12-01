@@ -1,0 +1,13 @@
+import { createGroq } from "@ai-sdk/groq";
+import { createOpenAI } from "@ai-sdk/openai";
+
+const groq = createGroq({
+  apiKey: process.env.GROQ_API_KEY,
+})("llama-3.2-3b-preview");
+
+const lmstudio = createOpenAI({
+  name: "lmstudio",
+  baseURL: "http://localhost:1234/v1",
+})("llama-3.2-3b-instruct");
+
+export { groq, lmstudio };

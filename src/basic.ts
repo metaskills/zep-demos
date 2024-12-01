@@ -1,12 +1,8 @@
-import { createGroq } from "@ai-sdk/groq";
 import { streamText, CoreUserMessage, CoreAssistantMessage } from "ai";
 import { inquire } from "./shared/inquirer.js";
+import { groq } from "./shared/models.js";
 
 const messages: (CoreUserMessage | CoreAssistantMessage)[] = [];
-
-const groq = createGroq({
-  apiKey: process.env.GROQ_API_KEY,
-})("llama-3.2-3b-preview");
 
 async function chat(content: string) {
   messages.push({ role: "user", content: content });
