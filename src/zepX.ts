@@ -2,31 +2,12 @@ import inquirer from "inquirer";
 import { v4 as uuidv4 } from "uuid";
 import { createGroq } from "@ai-sdk/groq";
 import { generateText } from "ai";
-import { zep } from "./shared/zep.js";
+import { zep, findOrCreateUser } from "./shared/zep.js";
 import type { Message } from "@getzep/zep-cloud/api";
 
 const groq = createGroq({
   apiKey: process.env.GROQ_API_KEY,
 })("llama-3.2-3b-preview");
-
-async function findOrCreateUser(u: {
-  userId: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-}) {
-  let user;
-  try {
-    user = await zep.user.get(u.userId);
-  } catch (error: any) {
-    if (error.code === 404) {
-      user = await zep.user.add(u);
-    } else {
-      throw error;
-    }
-  }
-  return user;
-}
 
 async function chat() {
   const memory: any = await zep.memory.get(sessionId);

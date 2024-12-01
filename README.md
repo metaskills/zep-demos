@@ -24,7 +24,7 @@ Make sure you have the following environment variables needed:
 ## Basic Chat
 
 ```shell
-npm run chat
+npm run basic
 ```
 
 ```
@@ -35,13 +35,7 @@ AI: Your name is Ken.
 ✔ You: Tell me a short story using my name.
 AI: Here's a short story for you, Ken:
 
-It was a sunny day in the small town of Willow Creek, and Ken was excited to participate in the annual SummerFest celebration. As he walked through the bustling streets, the smell of freshly made cotton candy and popcorn filled the air.
-
-Ken had always been passionate about music, and he had spent months practicing his guitar to perform at the festival's main stage. As he set up his equipment, he couldn't help but feel a mix of nerves and excitement.
-
-Just as Ken was about to start playing, a strong gust of wind blew through the crowd, knocking over a nearby vendor's stand. The vendor, a kind old man named Mr. Jenkins, was devastated as his entire stock of homemade jam was spilled all over the ground.
-
-Without hesitation, Ken jumped into action. He quickly grabbed a nearby bucket and began to help Mr. Jenkins gather the jam, while also keeping the crowd entertained with an impromptu guitar solo.
+It was a sunny day in the small town of Willow Creek, and Ken was excited to participate in the annual SummerFest celebration <!-- Story truncated for brevity -->
 
 The crowd erupted in applause, and Mr. Jenkins was so grateful that he offered Ken a special prize: a year's supply of his famous homemade jam. Ken accepted, and from that day on, he was known as the hero of SummerFest.
 
@@ -80,7 +74,11 @@ FACTS and ENTITIES represent relevant context to the current conversation.
 </ENTITIES>
 ```
 
-**Observations**
+
+
+
+
+## Observations
 
 * I would imagine that a find or create pattern for a user is common. Perhaps an API upsert pattern would be useful? Either way, easy to make a helper function that does this.
 * The User id property is a number but might be better off with a string. https://github.com/getzep/zep-js/issues/109

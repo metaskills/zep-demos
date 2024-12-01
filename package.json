@@ -4,16 +4,16 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "build": "npx tsc",
+    "build": "rm -rf dist && npx tsc",
     "clean": "node dist/scripts/clean.js",
-    "chat-basic": "node dist/chat-basic.js",
-    "chat-zep": "NODE_OPTIONS='--no-warnings' node dist/chat-zep.js"
+    "basic": "node dist/basic.js",
+    "chat0": "NODE_OPTIONS='--no-warnings' node dist/chat0.js"
   },
   "dependencies": {
     "@ai-sdk/groq": "^1.0.4",
     "@ai-sdk/openai": "^1.0.5",
     "@getzep/zep-cloud": "^2.1.1",
-    "ai": "^3.4.33",
+    "ai": "^4.0.9",
     "inquirer": "^12.1.0",
     "uuid": "^11.0.3"
   },
