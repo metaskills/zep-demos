@@ -1,12 +1,15 @@
-import inquirer from "inquirer";
 import { createGroq } from "@ai-sdk/groq";
 import { streamText, CoreUserMessage, CoreAssistantMessage } from "ai";
+import { getMessage } from "./shared/inquirer.js";
+
+const messages: (CoreUserMessage | CoreAssistantMessage)[] = [];
 
 const groq = createGroq({
   apiKey: process.env.GROQ_API_KEY,
 })("llama-3.2-3b-preview");
 
-async function chat() {
+async function chat(content: string) {
+  messages.push({ role: "user", content: content });
   const stream = streamText({
     model: groq,
     system: "You are a helpful assistant.",
@@ -20,17 +23,11 @@ async function chat() {
     fullResponse += chunk;
   }
   process.stdout.write("\n");
-  return fullResponse;
+  messages.push({ role: "assistant", content: fullResponse });
 }
 
-const messages: (CoreUserMessage | CoreAssistantMessage)[] = [];
-
 while (true) {
-  const userInput = await inquirer.prompt([
-    { type: "input", name: "message", message: "You:" },
-  ]);
-  if (userInput.message.toLowerCase() === "exit") break;
-  messages.push({ role: "user", content: userInput.message });
-  const assistant = await chat();
-  messages.push({ role: "assistant", content: assistant });
+  const content = await getMessage();
+  if (content.toLowerCase() === "exit") break;
+  await chat(content);
 }
