@@ -2,7 +2,6 @@ import { streamText } from "ai";
 import { inquire } from "./shared/inquire.js";
 import { groq } from "./shared/models.js";
 
-import { v4 as uuidv4 } from "uuid";
 import {
   zep,
   getOrAddUser,

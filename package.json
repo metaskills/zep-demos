@@ -8,7 +8,8 @@
     "clean": "node dist/scripts/clean.js",
     "basic": "node dist/basic.js",
     "zep0": "node dist/zep0.js",
-    "zep1": "node dist/zep1.js"
+    "zep1": "node dist/zep1.js",
+    "zep2": "node dist/zep2.js"
   },
   "dependencies": {
     "@ai-sdk/groq": "^1.0.4",

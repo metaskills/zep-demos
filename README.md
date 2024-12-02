@@ -72,6 +72,23 @@ npm run zep1
 Your name is Ken.
 ```
 
+### With Zep2
+
+This would work if we changed our `getMessages` helper to use `zep.memory.getSessions` and used each session's `createdAt` to sort them in order.
+
+```shell
+npm run clean
+npm run zep2
+✔ You: My name is Ken.
+
+npm run zep2
+✔ You: I blog at unremarkable.ai
+
+npm run zep2
+✔ You: What is my name and what do I do?
+```
+
+
 
 ## Observations
 
