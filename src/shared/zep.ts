@@ -1,22 +1,22 @@
 import { ZepClient } from "@getzep/zep-cloud";
-import type { Message, Memory } from "@getzep/zep-cloud/api";
+import type {
+  Message,
+  Memory,
+  CreateUserRequest,
+  CreateSessionRequest,
+} from "@getzep/zep-cloud/api";
 
 const zep = new ZepClient({
   apiKey: process.env.ZEP_API_KEY,
 });
 
-async function findOrCreateUser(u: {
-  userId: string;
-  email: string;
-  firstName: string;
-  lastName: string;
-}) {
+async function getOrAddUser(r: CreateUserRequest) {
   let user;
   try {
-    user = await zep.user.get(u.userId);
+    user = await zep.user.get(r.userId!);
   } catch (error: any) {
-    if (error.code === 404) {
-      user = await zep.user.add(u);
+    if (error.statusCode === 404) {
+      user = await zep.user.add(r);
     } else {
       throw error;
     }
@@ -24,7 +24,21 @@ async function findOrCreateUser(u: {
   return user;
 }
 
-async function messagesFromMemory(sessionId: string, newUserMessage: string) {
+async function getOrAddSession(r: CreateSessionRequest) {
+  let session;
+  try {
+    session = await zep.memory.getSession(r.sessionId!);
+  } catch (error: any) {
+    if (error.statusCode === 404) {
+      session = await zep.memory.addSession(r);
+    } else {
+      throw error;
+    }
+  }
+  return session;
+}
+
+async function getMessages(sessionId: string, newUserMessage: string) {
   const memory: Memory = await zep.memory.get(sessionId);
   const messages = memory.messages!.map((m: Message) => {
     return { role: m.roleType, content: m.content };
@@ -33,4 +47,4 @@ async function messagesFromMemory(sessionId: string, newUserMessage: string) {
   return messages;
 }
 
-export { zep, findOrCreateUser, messagesFromMemory };
+export { zep, getOrAddUser, getOrAddSession, getMessages };

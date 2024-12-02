@@ -47,16 +47,30 @@ How was that, Ken?
 And Ken, well, he was happy to have Emma by his side, spreading happiness and making wishes come true, one delicious cake at a time.
 ```
 
-### With Zep
+### With Zep0
 
 ```shell
-npm run chat0
+npm run zep0
 ```
 
+Just like above but memory (messages) are stored in Zep.
 
+### With Zep1
 
+```shell
+npm run clean
+npm run zep1
+✔ You: My name is Ken.
+Hello Ken. It's nice to meet you. Is there something I can help you with, or would you like to chat?
+```
 
+Now, if we exit and run the same command again:
 
+```shell
+npm run zep1
+✔ You: What is my name?
+Your name is Ken.
+```
 
 
 ## Observations
@@ -67,3 +81,5 @@ npm run chat0
 * Role Type for JavaScript/TypeScript Should Be roleType vs role_type. https://github.com/getzep/docs.getzep.com/issues/108
 * A common pattern in Ecommerce systems is moving a user from anonymous to identified. This is especially useful for conversion tracking. HOW DO YOU DO THIS WITH ZEP?!? 
 * The `zep.memory.listSessions` using a page should not raise a 404 error if no sessions are found. Instead, it could return an empty array.
+* The best way to learn the API is to read the SDK's source code. For example, I found the resource clients in the TypeScript source really helpful. For example, the Memory client. https://github.com/getzep/zep-js/blob/main/src/api/resources/memory/client/Client.ts
+

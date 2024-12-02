@@ -3,7 +3,12 @@ import { inquire } from "./shared/inquire.js";
 import { groq } from "./shared/models.js";
 
 import { v4 as uuidv4 } from "uuid";
-import { zep, getMessages } from "./shared/zep.js";
+import {
+  zep,
+  getOrAddUser,
+  getOrAddSession,
+  getMessages,
+} from "./shared/zep.js";
 
 async function chat(newUserMessage: string) {
   const messages: any = await getMessages(sessionId, newUserMessage);
@@ -28,7 +33,20 @@ async function chat(newUserMessage: string) {
   });
 }
 
-const sessionId = uuidv4();
+const userId = "1";
+const sessionId = "1";
+
+await getOrAddUser({
+  userId: userId,
+  email: "ken@unremarkable.ai",
+  firstName: "Ken",
+  lastName: "Collins",
+});
+
+await getOrAddSession({
+  sessionId: sessionId,
+  userId: userId,
+});
 
 while (true) {
   const newUserMessage = await inquire();
