@@ -1,4 +1,5 @@
 import { ZepClient } from "@getzep/zep-cloud";
+import type { Message, Memory } from "@getzep/zep-cloud/api";
 
 const zep = new ZepClient({
   apiKey: process.env.ZEP_API_KEY,
@@ -23,4 +24,13 @@ async function findOrCreateUser(u: {
   return user;
 }
 
-export { zep, findOrCreateUser };
+async function messagesFromMemory(sessionId: string, newUserMessage: string) {
+  const memory: Memory = await zep.memory.get(sessionId);
+  const messages = memory.messages!.map((m: Message) => {
+    return { role: m.roleType, content: m.content };
+  });
+  messages.push({ role: "user", content: newUserMessage });
+  return messages;
+}
+
+export { zep, findOrCreateUser, messagesFromMemory };

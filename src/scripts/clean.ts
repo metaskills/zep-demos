@@ -4,11 +4,19 @@ let pageNumber = 1;
 let sessions;
 process.stdout.write("Deleting sessions...");
 do {
-  const response = await zep.memory.listSessions({
-    pageSize: 100,
-    pageNumber,
-  });
-  sessions = response.sessions;
+  try {
+    const response = await zep.memory.listSessions({
+      pageSize: 100,
+      pageNumber,
+    });
+    sessions = response.sessions;
+  } catch (error: any) {
+    if (error.code === 404) {
+      sessions = [];
+    } else {
+      throw error;
+    }
+  }
   sessions?.forEach((s) => {
     try {
       zep.memory.delete(s.sessionId!);

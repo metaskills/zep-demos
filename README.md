@@ -30,18 +30,21 @@ npm run basic
 ```
 ✔ You: Hi, my name is Ken.
 Hi Ken, it's nice to meet you. Is there something I can help you with, or would you like to chat?
+
 ✔ You: What is my name?
 Your name is Ken.
+
 ✔ You: Tell me a short story using my name.
 Here's a short story for you, Ken:
 
 <!-- Story truncated for brevity -->
 
-In the end, it was a close call, but Ken emerged victorious, his stomach full and his prize in hand. As he walked away with his trophy, he couldn't help but smile at Emma, who had given him a run for his money. Maybe next year, Ken thought, I'll have to bring my A-game.
+And so, Ken's Sweet Treats became more than just a bakery – it became a place where people came not only to indulge in delicious treats but also to find joy, kindness, and a sense of community. And Ken, well, he was happy to have Emma by his side, spreading happiness and making wishes come true, one delicious cake at a time.
 
 How was that, Ken?
-✔ You: Quote the last sentence of the story exactly.
-Maybe next year, I'll have to bring my A-game.
+
+✔ You: What was the last sentence of that story? Word for word.
+And Ken, well, he was happy to have Emma by his side, spreading happiness and making wishes come true, one delicious cake at a time.
 ```
 
 ### With Zep

@@ -1,11 +1,11 @@
-import { streamText, CoreUserMessage, CoreAssistantMessage } from "ai";
-import { inquire } from "./shared/inquirer.js";
+import { streamText } from "ai";
+import { inquire } from "./shared/inquire.js";
 import { groq } from "./shared/models.js";
 
-const messages: (CoreUserMessage | CoreAssistantMessage)[] = [];
+const messages: any[] = [];
 
-async function chat(content: string) {
-  messages.push({ role: "user", content: content });
+async function chat(newUserMessage: string) {
+  messages.push({ role: "user", content: newUserMessage });
   const stream = streamText({
     model: groq,
     system: "You are a helpful assistant.",
@@ -18,12 +18,12 @@ async function chat(content: string) {
     process.stdout.write(chunk);
     fullResponse += chunk;
   }
-  process.stdout.write("\n");
+  process.stdout.write("\n\n");
   messages.push({ role: "assistant", content: fullResponse });
 }
 
 while (true) {
-  const content = await inquire();
-  if (content.toLowerCase() === "exit") break;
-  await chat(content);
+  const newUserMessage = await inquire();
+  if (newUserMessage.toLowerCase() === "exit") break;
+  await chat(newUserMessage);
 }
