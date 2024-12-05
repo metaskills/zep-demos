@@ -2,7 +2,6 @@ import { streamText } from "ai";
 import { inquire } from "./shared/inquire.js";
 import { model } from "./shared/models.js";
 
-import { v4 as uuidv4 } from "uuid";
 import {
   zep,
   getOrAddUser,
@@ -11,10 +10,19 @@ import {
 } from "./shared/zep.js";
 
 async function chat(newUserMessage: string) {
-  const { messages }: any = await getMessages(sessionId, newUserMessage);
+  const { memory, messages }: any = await getMessages(
+    sessionId,
+    newUserMessage
+  );
+  const timestamp = new Date().toISOString().replace("T", " ").split(".")[0];
   const stream = streamText({
     model: model,
-    system: "You are a helpful assistant.",
+    system: `
+You are a helpful assistant. Use the following private facts and entities, which include timestamps, to inform your responses. Utilize the timestamps to ensure information is accurate and relevant, but do not mention or reference the facts, entities, or timestamps to the user in any way.
+
+${memory.context}
+
+The current time is ${timestamp}.`.trim(),
     messages: messages,
     temperature: 0.1,
     maxTokens: 1000,
@@ -34,7 +42,7 @@ async function chat(newUserMessage: string) {
 }
 
 const userId = "1";
-const sessionId = uuidv4();
+const sessionId = "1";
 
 await getOrAddUser({
   userId: userId,

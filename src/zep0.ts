@@ -6,7 +6,7 @@ import { v4 as uuidv4 } from "uuid";
 import { zep, getMessages } from "./shared/zep.js";
 
 async function chat(newUserMessage: string) {
-  const messages: any = await getMessages(sessionId, newUserMessage);
+  const { messages }: any = await getMessages(sessionId, newUserMessage);
   const stream = streamText({
     model: model,
     system: "You are a helpful assistant.",

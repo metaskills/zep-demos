@@ -38,13 +38,23 @@ async function getOrAddSession(r: CreateSessionRequest) {
   return session;
 }
 
-async function getMessages(sessionId: string, newUserMessage: string) {
+async function getMemory(sessionId: string) {
   const memory: Memory = await zep.memory.get(sessionId);
+  if (process.env.DEBUG) {
+    console.log("memory.context:\n", memory.context, "\n\n");
+    console.log("memory.relevantFacts:\n", memory.relevantFacts, "\n\n");
+    console.log("memory.summary:\n", memory.summary, "\n\n");
+  }
+  return { memory };
+}
+
+async function getMessages(sessionId: string, newUserMessage: string) {
+  const { memory } = await getMemory(sessionId);
   const messages = memory.messages!.map((m: Message) => {
     return { role: m.roleType, content: m.content };
   });
   messages.push({ role: "user", content: newUserMessage });
-  return messages;
+  return { memory, messages };
 }
 
-export { zep, getOrAddUser, getOrAddSession, getMessages };
+export { zep, getOrAddUser, getOrAddSession, getMemory, getMessages };

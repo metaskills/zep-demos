@@ -10,7 +10,7 @@ import {
 } from "./shared/zep.js";
 
 async function chat(newUserMessage: string) {
-  const messages: any = await getMessages(sessionId, newUserMessage);
+  const { messages }: any = await getMessages(sessionId, newUserMessage);
   const stream = streamText({
     model: model,
     system: "You are a helpful assistant.",

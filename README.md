@@ -38,8 +38,9 @@ npm run zep0
 A brief description of these enumerated demos are:
 
 - zep0: Unique Zep sessions per chat. Uses `zep.memory.get` for chat history messages.
-- zep1: Static Zep user with static user associated session. Creates or finds each. Uses `zep.memory.get` for chat history messages.
-- zep2: Status Zep user with unique user associated session. Creates or finds each user. Uses `zep.memory.get` for chat history messages.
+- zep1: Static Zep user with static user associated session. Creates or finds each. Uses `zep.memory.get` for chat history messages. 
+- zep2: Static Zep user with unique user associated session. Creates or finds a user. Uses `zep.memory.get` for chat history messages.
+- zep3: Static Zep user with static user associated session. Creates or finds each. Uses `zep.memory.get` for chat history messages and `memory.context` system prompt for in-context learning.
 
 ## Basic Chat
 
@@ -53,23 +54,11 @@ npm run basic
 ✔ You: What is my name?
 I don't have any information about your name. Our conversation just started...
 
-✔ You: Hi, my name is Ken.
+✔ You: Hi then, my name is Ken.
 Hi Ken, it's nice to meet you. Is there something I can help you with, or would you like to chat?
 
-✔ You: What is my name?
-Your name is Ken.
-
-✔ You: Tell me a short story using my name.
-Here's a short story for you, Ken:
-
-<!-- Story truncated for brevity -->
-
-And so, Ken's Sweet Treats became more than just a bakery – it became a place where people came not only to indulge in delicious treats but also to find joy, kindness, and a sense of community. And Ken, well, he was happy to have Emma by his side, spreading happiness and making wishes come true, one delicious cake at a time.
-
-How was that, Ken?
-
-✔ You: What was the last sentence of that story? Word for word.
-And Ken, well, he was happy to have Emma by his side, spreading happiness and making wishes come true, one delicious cake at a time.
+✔ You: I am working on a Personal AI project. Could you give me a very short idea for a use case?
+That sounds like an interesting project. Here's a brief idea for a use case...
 ```
 
 ### With Zep0
@@ -113,6 +102,38 @@ npm run zep2
 ✔ You: What is my name and what do I do?
 ```
 
+### With Zep3
+
+Meant to simulate a restored session, for example, logging back into a chatbot after a period of time. The first question of that first session, our chatbot will not know our name. Besides messages being empty, the `memory.context` is undefined. Meaning that despite the fact we have a created user and session attached to each other, that is no pre-seeded facts and entities in the `memory.context`.
+
+All first session chat basic baseline replies are exactly the same. However, if we quit the session and start up the chat again using `npm run zep3` and ask what is my name:
+
+```
+✔ You: What is my name?
+You've already told me, Ken. Your full name is actually Ken Collins.
+```
+
+See how it knows our full name now? This is because the `memory.context` is now seeded with the facts and entities from our last use of the session. For example:
+
+```xml
+<FACTS>
+  - Ken is working on a Personal AI project. (2024-12-05 03:29:10 - present)
+  - user has the email of ken@unremarkable.ai (2024-12-05 03:28:40 - present)
+  - The user's name is Ken. (2024-12-05 03:28:40 - 2024-12-05 03:29:01)
+  - user has the id of 1 (2024-12-05 03:28:40 - present)
+</FACTS>
+
+<ENTITIES>
+  - Ken Collins: Ken Collins is working on a Personal AI project and is seeking ideas for use cases.
+</ENTITIES>
+```
+
+So now we have a working demo that leverages Zep for both:
+
+- memory.context
+- memory.messages
+
+But we can do a little better. Why not ask the user what they would like to do when they next login to their session.
 
 
 ## Observations
