@@ -21,13 +21,38 @@ Make sure you have the following environment variables needed:
 - `ZEP_API_KEY` - Your [Zep's](https://help.getzep.com/projects) project API Key.
 - `GROQ_API_KEY` - Your [Groq](https://console.groq.com/playground?ref=unremarkable.ai) API Key.
 
+## High-Level Demos
+
+All demos follow these patterns:
+
+1. Uses [Inquirer.js](https://www.npmjs.com/package/inquirer) with the CLI to prompt for user questions.
+2. Streams model output to the CLI using the [Vercel AI SDK](https://sdk.vercel.ai).
+3. Uses the `llama-3.2-3b` model via the Groq provider.
+
+Enumerated demos can be called using `npm run`. For example:
+
+```shell
+npm run zep0
+```
+
+A brief description of these enumerated demos are:
+
+- zep0: Unique Zep sessions per chat. Uses `zep.memory.get` for chat history messages.
+- zep1: Static Zep user with static user associated session. Creates or finds each. Uses `zep.memory.get` for chat history messages.
+- zep2: Status Zep user with unique user associated session. Creates or finds each user. Uses `zep.memory.get` for chat history messages.
+
 ## Basic Chat
+
+A baseline AI SDK chatbot with static in-memory messages array. No Zep usage.
 
 ```shell
 npm run basic
 ```
 
 ```
+✔ You: What is my name?
+I don't have any information about your name. Our conversation just started...
+
 ✔ You: Hi, my name is Ken.
 Hi Ken, it's nice to meet you. Is there something I can help you with, or would you like to chat?
 
