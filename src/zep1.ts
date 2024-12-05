@@ -1,6 +1,6 @@
 import { streamText } from "ai";
 import { inquire } from "./shared/inquire.js";
-import { groq } from "./shared/models.js";
+import { model } from "./shared/models.js";
 
 import {
   zep,
@@ -12,7 +12,7 @@ import {
 async function chat(newUserMessage: string) {
   const messages: any = await getMessages(sessionId, newUserMessage);
   const stream = streamText({
-    model: groq,
+    model: model,
     system: "You are a helpful assistant.",
     messages: messages,
     temperature: 0.1,
