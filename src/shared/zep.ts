@@ -38,6 +38,8 @@ async function getOrAddSession(r: CreateSessionRequest) {
   return session;
 }
 
+async function 
+
 async function getMemory(sessionId: string) {
   const memory: Memory = await zep.memory.get(sessionId);
   if (process.env.DEBUG) {
