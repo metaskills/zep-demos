@@ -7,6 +7,7 @@ import {
   getOrAddUser,
   getOrAddSession,
   getMessages,
+  getQuestion,
 } from "./shared/zep.js";
 
 async function chat(newUserMessage: string) {

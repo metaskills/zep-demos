@@ -2,6 +2,7 @@ import { ZepClient } from "@getzep/zep-cloud";
 import type {
   Message,
   Memory,
+  Question,
   CreateUserRequest,
   CreateSessionRequest,
 } from "@getzep/zep-cloud/api";
@@ -38,7 +39,13 @@ async function getOrAddSession(r: CreateSessionRequest) {
   return session;
 }
 
-async function 
+async function getQuestion(sessionId: string) {
+  const question: Question = await zep.memory.synthesizeQuestion(sessionId);
+  if (process.env.DEBUG) {
+    console.log("question.question:\n", question.question, "\n\n");
+  }
+  return question;
+}
 
 async function getMemory(sessionId: string) {
   const memory: Memory = await zep.memory.get(sessionId);
@@ -59,4 +66,11 @@ async function getMessages(sessionId: string, newUserMessage: string) {
   return { memory, messages };
 }
 
-export { zep, getOrAddUser, getOrAddSession, getMemory, getMessages };
+export {
+  zep,
+  getOrAddUser,
+  getOrAddSession,
+  getQuestion,
+  getMemory,
+  getMessages,
+};
